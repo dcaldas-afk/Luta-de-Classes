@@ -1,3 +1,4 @@
+package game.resources;
 /* Aqui tem algumas validações pra impedir que o mago recupere mana além do máximo, e para
 não aceitar valores negativos no custo ou na própria mana*/
 public class Mana implements Resource {

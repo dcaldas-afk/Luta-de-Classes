@@ -1,3 +1,4 @@
+package game.resources;
 public interface Resource {
     boolean hasEnough(int cost);
     boolean spend(int cost);

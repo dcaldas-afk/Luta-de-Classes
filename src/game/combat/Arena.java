@@ -1,3 +1,9 @@
+package game.combat;
+
+import game.action.*;
+import game.core.*;
+import game.menu.Menu;
+
 public class Arena {
     private Party partyA;
     private Party partyB;

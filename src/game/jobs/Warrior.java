@@ -1,0 +1,23 @@
+package game.jobs;
+
+import game.action.*;
+import game.core.*;
+
+public class Warrior extends Player {
+        private static Stats defaultStats() {
+        return new Stats (
+    100, // strength
+     5,   // agility
+    4,   // vitality
+10,  // intelligence
+   0,   // dexterity
+        6    // luck 
+        );
+    }
+    
+    public Warrior(String name, boolean ifHuman) {
+        super(name, 100, ifHuman, defaultStats());
+        actions.add(new Attack());
+        actions.add(new SkipTurn());
+    }
+}
