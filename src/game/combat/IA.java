@@ -1,3 +1,7 @@
+package game.combat;
+
+import game.action.Action;
+import game.core.Player;
 import java.util.*;
 
 public class IA {

@@ -1,3 +1,4 @@
+package game.resources;
 /*Pontos de skill para habilidades físicas. Não precisa funcionar igual à mana, aqui tem um delay na recuperação,
 mas pode só não recuperar mesmo, sei lá */
 public class SP implements Resource {

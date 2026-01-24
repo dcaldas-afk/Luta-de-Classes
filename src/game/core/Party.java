@@ -1,3 +1,5 @@
+package game.core;
+
 import java.util.*;
 
 public class Party {

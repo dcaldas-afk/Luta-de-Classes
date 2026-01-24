@@ -1,3 +1,7 @@
+package game.menu;
+
+import game.action.Action;
+import game.core.Player;
 import java.util.*;
 
 public class Menu {

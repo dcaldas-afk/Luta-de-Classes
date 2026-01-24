@@ -1,4 +1,9 @@
-import java.util.*;
+package game;
+
+import game.combat.*;
+import game.core.*;
+import game.jobs.*;
+import java.util.List;
 
 public class Main {
 
@@ -7,11 +12,12 @@ public class Main {
         // ===== Criando combatentes =====
         Player merlin = new Mage("Merlin", true);
         Player gandalf = new Mage("Gandalf", false);
-        Player vivi = new Mage("Vivi", true);
+        Player vivi = new Mage("Vivi", false);
+        Player oak = new Warrior("Oak", true);
 
         // ===== Criando as parties =====
-        Party partyA = new Party(List.of(merlin, vivi));
-        Party partyB = new Party(List.of(gandalf));
+        Party partyA = new Party(List.of(merlin, oak));
+        Party partyB = new Party(List.of(gandalf, vivi));
 
         // ===== Criando a arena =====
         Arena arena = new Arena(partyA, partyB);

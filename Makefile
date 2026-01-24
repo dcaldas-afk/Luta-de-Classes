@@ -1,6 +1,6 @@
 SRC=src
 BIN=bin
-MAIN=Main
+MAIN=game.Main
 
 JAVAC=javac
 JAVA=java

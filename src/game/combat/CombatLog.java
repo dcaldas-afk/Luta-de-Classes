@@ -1,3 +1,5 @@
+package game.combat;
+
 import java.util.*;
 
 public class CombatLog {

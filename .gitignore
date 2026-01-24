@@ -1,0 +1,26 @@
+# Arquivos compilados
+*.class
+*.jar
+*.war
+*.ear
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.swp
+
+# Pastas
+/target/
+/bin/
+/out/
+/build/
+/docs/
+
+# Outros
+.project
+.classpath
+.settings/
+.idea/
+*.iml
+.vscode/
+*.Identifier

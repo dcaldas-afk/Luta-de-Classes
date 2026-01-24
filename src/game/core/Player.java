@@ -1,3 +1,8 @@
+package game.core;
+
+import game.action.Action;
+import game.combat.CombatLog;
+import game.resources.Resource;
 import java.util.*;
 
 public abstract class Player {
@@ -5,6 +10,7 @@ public abstract class Player {
     protected final String name;
     protected final int maxHP;
     protected int currentHP;
+    protected Stats stats;
 
     protected boolean ifHuman;
 
@@ -12,7 +18,7 @@ public abstract class Player {
 
     private Map<Class<? extends Resource>, Resource> resources = new HashMap<>();
 
-    public Player(String name, int maxHP, boolean ifHuman) {
+    public Player(String name, int maxHP, boolean ifHuman, Stats stats) {
         if (maxHP <= 0)
             throw new IllegalArgumentException("Os PV precisam ser positivos!");
 
@@ -20,6 +26,7 @@ public abstract class Player {
         this.maxHP = maxHP;
         this.currentHP = maxHP;
         this.ifHuman = ifHuman;
+        this.stats = stats;
     }
 
     /* ================= VIDA ================= */
@@ -30,11 +37,10 @@ public abstract class Player {
 
         currentHP -= damage;
 
-        if (currentHP < 0) {
-            currentHP = 0;
+        if (currentHP <= 0) {
             death();
+            currentHP = 0;
         }
-
         return damage;
     }
 
@@ -43,7 +49,7 @@ public abstract class Player {
     }
 
     public void death() {
-        CombatLog.register(name + "morreu");
+        CombatLog.register(name + " morreu");
     }
 
     /* ================= AÇÕES ================= */
@@ -79,5 +85,9 @@ public abstract class Player {
 
     public int getMaxHP() {
         return maxHP;
+    }
+
+    public Stats getStats() {
+        return stats;
     }
 }
