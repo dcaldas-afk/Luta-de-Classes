@@ -3,11 +3,13 @@ package game.combat;
 import game.action.*;
 import game.core.*;
 import game.menu.Menu;
+import game.resources.Mana;
+import game.skill.*;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import game.skill.*;
 
 public class Arena {
 
@@ -73,7 +75,10 @@ public class Arena {
         Action action;
 
         if (actor.isHuman()) {
-            CombatLog.register("\nCombatente: " + actor.getName());
+            CombatLog.register("\nCombatente: " + actor.getName() + " [" + actor.getJob() + "]");
+            CombatLog.register("HP: " + actor.getCurrentHP() + "/" + actor.getMaxHP());
+            Mana mana = actor.getResource(Mana.class);
+            CombatLog.register("MP: " + mana.getCurrent() + "/" + mana.getMax());
             action = Menu.select(actor);
         } else {
             action = IA.act(actor);
@@ -86,8 +91,11 @@ public class Arena {
                     ? Menu.selectSkill(actor)
                     : IA.selectSkill(actor);
 
-            if (skill == null)
+            // VOLTAR → não perde o turno
+            if (skill == null) {
+                turn(actor, enemyParty);
                 return;
+            }
 
             switch (skill.getTargetType()) {
 
@@ -129,7 +137,10 @@ public class Arena {
         switch (action.getTargetType()) {
 
             case ENEMY_SINGLE -> {
-                Player target = enemyParty.randomLivingMember();
+                Player target = actor.isHuman()
+                        ? Menu.selectTarget(enemyParty.getLivingMembers())
+                        : enemyParty.randomLivingMember();
+
                 if (target != null)
                     action.act(actor, target);
             }

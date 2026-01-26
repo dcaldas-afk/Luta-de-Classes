@@ -2,6 +2,7 @@ package game.jobs;
 
 import game.action.*;
 import game.core.*;
+import game.resources.Mana;
 import game.skill.Fireball;
 
 public class Mage extends Player {
@@ -18,11 +19,14 @@ public class Mage extends Player {
     }
     
     public Mage(String name, boolean ifHuman) {
-        super(name, 100, ifHuman, defaultStats());
+        super(name, 100, ifHuman, defaultStats(), Job.MAGE);
+        addResource(new Mana(100));
+
         actions.add(new Attack());
         actions.add(new SkillMenuAction());
         actions.add(new SkipTurn());
 
         skillList.add(new Fireball());
     }
+
 }

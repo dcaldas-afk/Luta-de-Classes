@@ -10,6 +10,7 @@ public abstract class Player {
 
     protected final String name;
     protected final int maxHP;
+    protected final Job job;
     protected int currentHP;
     protected Stats stats;
 
@@ -19,12 +20,11 @@ public abstract class Player {
     protected List<Skill> skillList = new ArrayList<>();
 
     private Map<Class<? extends Resource>, Resource> resources = new HashMap<>();
-    
 
-    /* ================= ATB ================= */
     private int atb = 0;
 
-    public Player(String name, int maxHP, boolean ifHuman, Stats stats) {
+    public Player(String name, int maxHP, boolean ifHuman, Stats stats, Job job) {
+
         if (maxHP <= 0)
             throw new IllegalArgumentException("Os PV precisam ser positivos!");
 
@@ -36,6 +36,7 @@ public abstract class Player {
         this.currentHP = maxHP;
         this.ifHuman = ifHuman;
         this.stats = stats;
+        this.job = job;
     }
 
     /* ================= VIDA ================= */
@@ -66,6 +67,10 @@ public abstract class Player {
 
     public List<Action> getActionList() {
         return actions;
+    }
+
+    public List<Skill> getSkillList() {
+        return skillList;
     }
 
     public boolean isHuman() {
@@ -119,7 +124,7 @@ public abstract class Player {
         return stats;
     }
 
-    public List<Skill> getSkillList() {
-    return skillList;
-}
+    public Job getJob() {
+        return job;
+    }
 }

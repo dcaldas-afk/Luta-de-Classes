@@ -2,6 +2,7 @@ package game.jobs;
 
 import game.action.*;
 import game.core.*;
+import game.resources.Mana;
 
 public class Warrior extends Player {
         private static Stats defaultStats() {
@@ -16,8 +17,10 @@ public class Warrior extends Player {
     }
     
     public Warrior(String name, boolean ifHuman) {
-        super(name, 100, ifHuman, defaultStats());
+        super(name, 100, ifHuman, defaultStats(), Job.WARRIOR);
+        addResource(new Mana(50));
         actions.add(new Attack());
+        actions.add(new SkillMenuAction());
         actions.add(new SkipTurn());
     }
 }

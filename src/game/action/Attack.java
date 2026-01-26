@@ -42,6 +42,5 @@ public class Attack implements Action {
         damage = Math.max(0, damage);
         CombatLog.register(player.getName() + " atacou " + target.getName() + ", causando " + damage + " pontos de dano");
         target.receiveDamage(damage);
-
     }
 }
