@@ -1,7 +1,8 @@
 package game.action;
 
 import game.combat.CombatLog;
-import game.core.Player;
+import game.combat.TargetType;
+import game.core.*;
 import java.util.Random;
 
 public class Attack implements Action {
@@ -9,6 +10,11 @@ public class Attack implements Action {
     @Override
     public String getName() {
         return "Ataque básico";
+    }
+
+    @Override
+    public TargetType getTargetType() {
+        return TargetType.ENEMY_SINGLE;
     }
 
     @Override

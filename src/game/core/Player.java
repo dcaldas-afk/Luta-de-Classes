@@ -3,6 +3,7 @@ package game.core;
 import game.action.Action;
 import game.combat.CombatLog;
 import game.resources.Resource;
+import game.skill.Skill;
 import java.util.*;
 
 public abstract class Player {
@@ -15,12 +16,20 @@ public abstract class Player {
     protected boolean ifHuman;
 
     protected List<Action> actions = new ArrayList<>();
+    protected List<Skill> skillList = new ArrayList<>();
 
     private Map<Class<? extends Resource>, Resource> resources = new HashMap<>();
+    
+
+    /* ================= ATB ================= */
+    private int atb = 0;
 
     public Player(String name, int maxHP, boolean ifHuman, Stats stats) {
         if (maxHP <= 0)
             throw new IllegalArgumentException("Os PV precisam ser positivos!");
+
+        if (stats == null)
+            throw new IllegalArgumentException("Stats não podem ser nulos!");
 
         this.name = name;
         this.maxHP = maxHP;
@@ -38,9 +47,10 @@ public abstract class Player {
         currentHP -= damage;
 
         if (currentHP <= 0) {
-            death();
             currentHP = 0;
+            death();
         }
+
         return damage;
     }
 
@@ -60,6 +70,24 @@ public abstract class Player {
 
     public boolean isHuman() {
         return ifHuman;
+    }
+
+    /* ================= LÓGICA DE ATB ================= */
+
+    public void gainATB() {
+        atb += stats.getAgility();
+    }
+
+    public boolean isReady() {
+        return atb >= 100;
+    }
+
+    public void resetATB() {
+        atb = 0;
+    }
+
+    public int getATB() {
+        return atb;
     }
 
     /* ================= RECURSOS ================= */
@@ -90,4 +118,8 @@ public abstract class Player {
     public Stats getStats() {
         return stats;
     }
+
+    public List<Skill> getSkillList() {
+    return skillList;
+}
 }

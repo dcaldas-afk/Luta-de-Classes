@@ -28,4 +28,9 @@ public class Party {
     public List<Player> getAllMembers() {
         return members;
     }
+
+    public boolean contains(Player player) {
+        return members.contains(player);
+    }
+
 }
