@@ -11,13 +11,14 @@ public class Main {
 
         // ===== Criando combatentes =====
         Player merlin = new Mage("Merlin", true);
-        Player gandalf = new Mage("Gandalf", false);
+        Player gandalf = new Mage("Gandalf", true);
         Player vivi = new Mage("Vivi", false);
         Player oak = new Warrior("Oak", true);
+        Player legolas = new Archer("Legolas", false);
 
         // ===== Criando as parties =====
-        Party partyA = new Party(List.of(merlin, oak));
-        Party partyB = new Party(List.of(gandalf, vivi));
+        Party partyA = new Party(List.of(merlin, oak, gandalf));
+        Party partyB = new Party(List.of(vivi, legolas));
 
         // ===== Criando a arena =====
         Arena arena = new Arena(partyA, partyB);

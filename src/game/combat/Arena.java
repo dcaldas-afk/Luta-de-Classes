@@ -57,6 +57,7 @@ public class Arena {
 
             CombatLog.register("Fim da rodada " + round);
             round++;
+            processEndOfRoundEffects();
         }
 
         if (!partyA.hasLivingMembers())
@@ -87,9 +88,7 @@ public class Arena {
         // ==== SKILL MENU ====
         if (action instanceof SkillMenuAction) {
 
-            Skill skill = actor.isHuman()
-                    ? Menu.selectSkill(actor)
-                    : IA.selectSkill(actor);
+            Skill skill = actor.isHuman() ? Menu.selectSkill(actor) : IA.selectSkill(actor);
 
             // VOLTAR → não perde o turno
             if (skill == null) {
@@ -100,20 +99,18 @@ public class Arena {
             switch (skill.getTargetType()) {
 
                 case ENEMY_SINGLE -> {
-                    Player target = actor.isHuman()
-                            ? Menu.selectTarget(enemyParty.getLivingMembers())
-                            : enemyParty.randomLivingMember();
+                    Player target = actor.isHuman() ? Menu.selectTarget(enemyParty.getLivingMembers()) : enemyParty.randomLivingMember();
                     if (target != null)
                         skill.use(actor, target);
                 }
 
                 case ALLY_SINGLE -> {
                     Party ally = partyA.getAllMembers().contains(actor) ? partyA : partyB;
-                    Player target = actor.isHuman()
-                            ? Menu.selectTarget(ally.getLivingMembers())
-                            : ally.randomLivingMember();
-                    if (target != null)
+                    Player target = actor.isHuman() ? Menu.selectTarget(ally.getLivingMembers()) : ally.randomLivingMember();
+                    if (target != null) {
+                        skill.displayMessage(actor, target);
                         skill.use(actor, target);
+                    }
                 }
 
                 case ENEMY_AREA -> {
@@ -122,7 +119,14 @@ public class Arena {
                 }
 
                 case ALLY_AREA -> {
+
+                    if (!skill.canUse(actor)) {
+                        CombatLog.register("Mana insuficiente!");
+                        return;
+                    }
+                    skill.consume(actor);
                     Party ally = partyA.getAllMembers().contains(actor) ? partyA : partyB;
+                    skill.displayMessage(actor, actor);
                     for (Player p : ally.getLivingMembers())
                         skill.use(actor, p);
                 }
@@ -172,7 +176,7 @@ public class Arena {
     private void processEndOfRoundEffects() {
         for (Player p : generalPlayerList) {
             if (p.isAlive()) {
-                // buffs, debuffs, DoT, HoT etc
+                p.onRoundEnd();
             }
         }
     }

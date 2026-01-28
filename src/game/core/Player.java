@@ -1,15 +1,16 @@
 package game.core;
 
 import game.action.Action;
+import game.buffs.Effect;
 import game.combat.CombatLog;
 import game.resources.Resource;
-import game.skill.Skill;
+import game.skill.*;
 import java.util.*;
 
 public abstract class Player {
 
     protected final String name;
-    protected final int maxHP;
+    protected int maxHP;
     protected final Job job;
     protected int currentHP;
     protected Stats stats;
@@ -18,8 +19,11 @@ public abstract class Player {
 
     protected List<Action> actions = new ArrayList<>();
     protected List<Skill> skillList = new ArrayList<>();
+    private List<Effect> effects = new ArrayList<>();
+    
 
     private Map<Class<? extends Resource>, Resource> resources = new HashMap<>();
+    
 
     private int atb = 0;
 
@@ -61,6 +65,24 @@ public abstract class Player {
 
     public void death() {
         CombatLog.register(name + " morreu");
+    }
+
+    public void setCurrentHP(int value) {
+        currentHP = Math.min(maxHP, value);
+    }
+
+    public void increaseCurrentHP(int value) {
+        currentHP += value;
+    }
+
+    public void increaseMaxHP(int value) {
+        maxHP += value;
+    }
+
+    public void decreaseMaxHP(int value) {
+        maxHP -= value;
+        if (maxHP < 1)
+            maxHP = 1;
     }
 
     /* ================= AÇÕES ================= */
@@ -108,23 +130,37 @@ public abstract class Player {
 
     /* ================= GETTERS ================= */
 
-    public String getName() {
-        return name;
+    public String getName()   {return name;}
+    public int getCurrentHP() {return currentHP;}
+    public int getMaxHP()     {return maxHP;}
+    public Stats getStats()   {return stats;}
+    public Job getJob()       {return job;}
+
+    /* ================= BUFFS ================= */
+
+    public boolean hasEffect(String effectID) {
+        return effects.stream().anyMatch(e -> e.getId().equals(effectID));
     }
 
-    public int getCurrentHP() {
-        return currentHP;
+    public void addEffect(Effect effect) {
+        for (Effect e : effects) {
+            if (e.getId().equals(effect.getId())) {
+                e.refresh(this, effect);
+                return;
+            }
+        }
+        effects.add(effect);
+        effect.apply(this);
     }
 
-    public int getMaxHP() {
-        return maxHP;
-    }
-
-    public Stats getStats() {
-        return stats;
-    }
-
-    public Job getJob() {
-        return job;
+    public void onRoundEnd() {
+        Iterator<Effect> it = effects.iterator();
+        while(it.hasNext()) {
+            Effect e = it.next();
+            e.onTurnEnd(this);
+            if (e.isExpired()) {
+                it.remove();
+            }
+        }
     }
 }

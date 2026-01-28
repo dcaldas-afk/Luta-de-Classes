@@ -1,5 +1,7 @@
 package game.skill;
 
+import java.util.List;
+
 import game.combat.TargetType;
 import game.core.Player;
 import game.resources.Mana;
@@ -36,4 +38,6 @@ public abstract class Skill {
     }
 
     public abstract void use(Player actor, Player target);
+
+    public abstract void displayMessage(Player actor, Player target);
 }
