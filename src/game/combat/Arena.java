@@ -114,7 +114,15 @@ public class Arena {
                 }
 
                 case ENEMY_AREA -> {
-                    for (Player p : enemyParty.getLivingMembers())
+
+                    if (!skill.canUse(actor)) {
+                        CombatLog.register("Mana insuficiente!");
+                        return;
+                    }
+                    skill.consume(actor);
+                    Party enemy = partyB.getAllMembers().contains(actor) ? partyA : partyB;
+                    skill.displayMessage(actor, actor);
+                    for (Player p : enemy.getLivingMembers())
                         skill.use(actor, p);
                 }
 

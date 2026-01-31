@@ -6,21 +6,19 @@ import game.buffs.*;
 import game.combat.*;
 import game.core.*;
 
-public class Angelus extends Skill {
+public class ImpositioManus extends Skill {
 
-    public Angelus() {
-        this.name = "Angelus";
-        this.cost = 70;
-        this.targetType = TargetType.ALLY_AREA;
+    public ImpositioManus() {
+        this.name = "Impositio Manus";
+        this.cost = 50;
+        this.targetType = TargetType.ENEMY_AREA;
     }
 
     @Override
     public void use(Player actor, Player target) {
-        int hpBonus = (int) (target.getMaxHP() * 0.5);
-
-        boolean applied = target.addEffect(new AngelusEffect());
+        boolean applied = target.addEffect(new ImpositioManusEffect());
         if (applied) {
-            CombatLog.register(target.getName() + " recebeu +50% HP máximo e VIT+5 por 3 turnos!");
+            CombatLog.register(target.getName() + " recebeu um bônus de +20% de dano por 3 turnos!");
         }
     }
 

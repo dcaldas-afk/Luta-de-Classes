@@ -3,7 +3,8 @@ package game.core;
 public enum Job {
     WARRIOR("Guerreiro"),
     MAGE("Mago"),
-    ARCHER("Atirador");
+    ARCHER("Atirador"),
+    PRIEST("Sacerdote");
 
     private final String displayName;
 

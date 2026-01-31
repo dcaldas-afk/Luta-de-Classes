@@ -6,21 +6,21 @@ import game.buffs.*;
 import game.combat.*;
 import game.core.*;
 
-public class Angelus extends Skill {
+public class Gloria extends Skill {
 
-    public Angelus() {
-        this.name = "Angelus";
-        this.cost = 70;
+    public Gloria() {
+        this.name = "Gloria";
+        this.cost = 20;
         this.targetType = TargetType.ALLY_AREA;
     }
 
     @Override
     public void use(Player actor, Player target) {
-        int hpBonus = (int) (target.getMaxHP() * 0.5);
-
-        boolean applied = target.addEffect(new AngelusEffect());
+        if (!canUse(actor))
+            return;
+        boolean applied = target.addEffect(new GloriaEffect());
         if (applied) {
-            CombatLog.register(target.getName() + " recebeu +50% HP máximo e VIT+5 por 3 turnos!");
+            CombatLog.register(target.getName() + " recebeu SOR+30 por 2 turnos!");
         }
     }
 

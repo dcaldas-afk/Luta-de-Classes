@@ -51,6 +51,13 @@ public abstract class Player {
 
         currentHP -= damage;
 
+        //debug
+        if (hasEffect("MANUS")) {
+            double atk = damage*1.2;
+            CombatLog.register(String.valueOf(atk*1.2));
+            damage = (int) atk;
+        }
+
         if (currentHP <= 0) {
             currentHP = 0;
             death();
@@ -136,21 +143,22 @@ public abstract class Player {
     public Stats getStats()   {return stats;}
     public Job getJob()       {return job;}
 
-    /* ================= BUFFS ================= */
+    /* ================= BUFFS/DEBUFFS ================= */
 
     public boolean hasEffect(String effectID) {
         return effects.stream().anyMatch(e -> e.getId().equals(effectID));
     }
 
-    public void addEffect(Effect effect) {
+    public boolean addEffect(Effect effect) {
         for (Effect e : effects) {
             if (e.getId().equals(effect.getId())) {
                 e.refresh(this, effect);
-                return;
+                return false;
             }
         }
         effects.add(effect);
         effect.apply(this);
+        return true;
     }
 
     public void onRoundEnd() {
@@ -162,5 +170,9 @@ public abstract class Player {
                 it.remove();
             }
         }
+    }
+
+    public boolean isSilenced() {
+        return effects.stream().anyMatch(e -> e.getId().equals("SILENCE"));
     }
 }

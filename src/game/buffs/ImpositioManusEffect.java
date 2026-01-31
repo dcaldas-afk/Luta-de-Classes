@@ -3,22 +3,18 @@ package game.buffs;
 import game.combat.CombatLog;
 import game.core.Player;
 
-public class AngelusEffect implements Effect {
+public class ImpositioManusEffect implements Effect {
 
     private int duration = 3;
-    private int hpBonus;
 
     @Override
     public String getId() {
-        return "ANGELUS";
+        return "MANUS";
     }
 
     @Override
     public void apply(Player p) {
-        hpBonus = (int) (p.getMaxHP() * 0.5);
-
-        p.increaseMaxHP(hpBonus);
-        p.increaseCurrentHP(hpBonus);
+        
     }
 
     @Override
@@ -32,17 +28,12 @@ public class AngelusEffect implements Effect {
     @Override
     public void refresh(Player p, Effect newEffect) {
         duration = 3;
-        CombatLog.register(p.getName() + " teve a duração de Angelus renovada");
+        CombatLog.register(p.getName() + " teve a duração de Impositio Manus renovada");
     }
 
     @Override
     public void onExpire(Player p) {
-        p.decreaseMaxHP(hpBonus);
-
-        if (p.getCurrentHP() > p.getMaxHP()) {
-            p.setCurrentHP(p.getMaxHP());
-        }
-        CombatLog.register("O efeito de Angelus passou. " + p.getName() + " perdeu o buff de Vitalidade e seu HP voltou ao normal");
+        CombatLog.register(p.getName() + " perdeu bônus de ataque garantido por Impositio Manus");
     }
 
     @Override

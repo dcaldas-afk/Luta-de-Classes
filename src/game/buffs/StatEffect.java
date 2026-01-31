@@ -58,4 +58,9 @@ public class StatEffect implements Effect {
     public boolean isExpired() {
         return duration <= 0;
     }
+
+    @Override
+    public boolean rollCritical(Player actor) {
+        return false;
+    }
 }

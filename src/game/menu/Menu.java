@@ -1,6 +1,7 @@
 package game.menu;
 
 import game.action.Action;
+import game.combat.CombatLog;
 import game.core.Player;
 import game.skill.Skill;
 import java.util.*;
@@ -53,6 +54,10 @@ public class Menu {
 
             if (choice >= 1 && choice <= skills.size()) {
                 Skill s = skills.get(choice - 1);
+                if (s.isMute(p)) {
+                    CombatLog.register(p.getName() + " está silenciado e não pode usar magias ou habilidades");
+                    continue;
+                }
                 if (!s.canUse(p)) {
                     System.out.println("Mana insuficiente.");
                     continue;
@@ -70,7 +75,7 @@ public class Menu {
         while (true) {
             for (int i = 0; i < targets.size(); i++) {
                 Player p = targets.get(i);
-                System.out.println( (i + 1) + " - " + p.getName() + " [" + p.getJob() + "] " + "" + p.getCurrentHP() + "/" + p.getMaxHP() + " HP");
+                System.out.println( (i + 1) + " - " + p.getName() + " [" + p.getJob() + "] " + "" + p.getCurrentHP() + "/" + p.getMaxHP() + " HP" + " SOR: " + p.hasEffect("MANUS"));
             }
             System.out.println("0 - Voltar");
             System.out.print("> ");
