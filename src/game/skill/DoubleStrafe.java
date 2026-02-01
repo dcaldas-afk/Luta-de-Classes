@@ -31,6 +31,7 @@ public class DoubleStrafe extends Skill {
         int total = new MultiAttack(2, formula).execute(actor, target);
         CombatLog.register("A Rajada de Flechas de " + actor.getName() + " causou um total de " + total + " pontos de dano a " + target.getName());
         target.receiveDamage(total);
+        target.ifDeath();
     }
 
     @Override

@@ -10,7 +10,7 @@ public class Priest extends Player {
     private static Stats defaultStats() {
         return new Stats (
     2,   // strength
-     9,   // agility
+     90,   // agility
     4,   // dexterity
 10,  // intelligence
    99,  // vitality

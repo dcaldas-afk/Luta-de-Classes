@@ -46,22 +46,20 @@ public abstract class Player {
     /* ================= VIDA ================= */
 
     public int receiveDamage(int damage) {
+        int base = damage;
+        double buff1 = 0;
+        double buff2 = 0;
+
+
+        if (hasEffect("MANUS")) {
+            buff1  = Math.floor(base*0.2);
+        }
+
+        damage = (int) (base + buff1);
         if (damage <= 0)
             return 0;
-
+        
         currentHP -= damage;
-
-        //debug
-        if (hasEffect("MANUS")) {
-            double atk = damage*1.2;
-            CombatLog.register(String.valueOf(atk*1.2));
-            damage = (int) atk;
-        }
-
-        if (currentHP <= 0) {
-            currentHP = 0;
-            death();
-        }
 
         return damage;
     }
@@ -70,8 +68,11 @@ public abstract class Player {
         return currentHP > 0;
     }
 
-    public void death() {
-        CombatLog.register(name + " morreu");
+    public void ifDeath() {
+        if (currentHP <= 0) {
+            currentHP = 0;
+            CombatLog.register(name + " morreu");
+        }
     }
 
     public void setCurrentHP(int value) {

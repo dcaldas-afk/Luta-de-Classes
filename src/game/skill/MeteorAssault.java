@@ -26,6 +26,7 @@ public class MeteorAssault extends Skill {
 
         CombatLog.register(target.getName() + " recebeu " + damage + " pontos de dano");
         target.receiveDamage(damage);
+        target.ifDeath();
     }
 
     @Override

@@ -30,6 +30,7 @@ public class SonicBlow extends Skill {
         int total = new MultiAttack(8, formula).execute(actor, target);
         CombatLog.register("As Lâminas Destruidoras de " + actor.getName() + " causaram um total de " + total + " pontos de dano a " + target.getName());
         target.receiveDamage(total);
+        target.ifDeath();
     }
 
     @Override

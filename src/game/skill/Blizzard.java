@@ -28,6 +28,7 @@ public class Blizzard extends Skill {
         target.addEffect(new SlowEffect(3));
         CombatLog.register(target.getName() + " foi congelado, sofrendo lentidão e recebendo AGI-5");
         target.receiveDamage(damage);
+        target.ifDeath();
     }
 
     @Override

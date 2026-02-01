@@ -31,6 +31,7 @@ public class Fireball extends Skill {
 
         CombatLog.register(actor.getName() + " lançou Bola de Fogo em " + target.getName() + ", causando " + damage + " pontos de dano" );
         target.receiveDamage(damage);
+        target.ifDeath();
     }
 
     @Override

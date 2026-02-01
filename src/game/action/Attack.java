@@ -40,7 +40,8 @@ public class Attack implements Action {
         
         int damage = 2 + baseDmg + variation;
         damage = Math.max(0, damage);
+        damage = target.receiveDamage(damage);
         CombatLog.register(player.getName() + " atacou " + target.getName() + ", causando " + damage + " pontos de dano");
-        target.receiveDamage(damage);
+        target.ifDeath();
     }
 }
