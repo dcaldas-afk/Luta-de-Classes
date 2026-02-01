@@ -3,11 +3,15 @@ package game;
 import game.combat.*;
 import game.core.*;
 import game.jobs.*;
+import game.ui.CombatLogWindow;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        // ===== Inicializa a janela de log =====
+        CombatLogWindow.init();
 
         // ===== Criando combatentes =====
         Player merlin = new Mage("Merlin", true);

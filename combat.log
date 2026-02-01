@@ -1,0 +1,15 @@
+
+--------- Rodada 1 ---------
+
+Combatente: Basara [Sacerdote]
+HP: 100/100
+MP: 100/100
+Exception in thread "main" java.util.NoSuchElementException
+	at java.base/java.util.Scanner.throwFor(Scanner.java:945)
+	at java.base/java.util.Scanner.next(Scanner.java:1602)
+	at java.base/java.util.Scanner.nextInt(Scanner.java:2267)
+	at java.base/java.util.Scanner.nextInt(Scanner.java:2221)
+	at game.menu.Menu.select(Menu.java:24)
+	at game.combat.Arena.turn(Arena.java:83)
+	at game.combat.Arena.start(Arena.java:50)
+	at game.Main.main(Main.java:29)
