@@ -5,19 +5,19 @@ import java.util.Map;
 import game.combat.CombatLog;
 import game.core.*;
 
-public class GloriaEffect implements Effect {
+public class HasteEffect implements Effect {
 
     private int duration = 0;
 
     @Override
     public String getId() {
-        return "GLORIA";
+        return "HASTE";
     }
 
     @Override
     public void apply(Player p) {
-        p.getStats().addLuck(30);
-        duration = 2;
+        p.getStats().addAgility(15);
+        duration = 6;
     }
 
     @Override
@@ -25,21 +25,21 @@ public class GloriaEffect implements Effect {
         duration--;
         if (duration <= 0) {
             onExpire(p);
-            p.getStats().addLuck(-30);
+            p.getStats().addAgility(-15);
         }
     }
 
     @Override
     public void refresh(Player p, Effect newEffect) {
-        if (newEffect instanceof GloriaEffect s) {
-            this.duration = 2;
-            CombatLog.register(p.getName() + " teve o efeito de Gloria reaplicado");
+        if (newEffect instanceof HasteEffect s) {
+            this.duration = 6;
+            CombatLog.register(p.getName() + " teve o efeito de Aumentar Agilidade reaplicado");
         }
     }
 
     @Override
     public void onExpire(Player p) {
-        CombatLog.register("O efeito de Gloria expirou. A sorte de " + p.getName() + " voltou ao normal");
+        CombatLog.register("O efeito de Aumentar Agilidade expirou. A agilidade de " + p.getName() + " voltou ao normal");
     }
 
     @Override

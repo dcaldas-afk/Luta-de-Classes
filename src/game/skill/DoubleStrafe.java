@@ -22,7 +22,7 @@ public class DoubleStrafe extends Skill {
         Random r = new Random();
 
         DamageFormula formula = (a, t) -> {
-            int base = (int) (a.getStats().getDexterity() * 2 - t.getStats().getVitality() * 1.5);
+            int base = 10 + ((int) (a.getStats().getDexterity() - t.getStats().getVitality()*0.8));
             double variance = 0.9 + (r.nextDouble() * 0.2);
             int finalDamage = (int) (base * variance);
             return finalDamage;

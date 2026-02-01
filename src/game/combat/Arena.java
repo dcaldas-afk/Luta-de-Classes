@@ -76,10 +76,10 @@ public class Arena {
         Action action;
 
         if (actor.isHuman()) {
-            CombatLog.register("\nCombatente: " + actor.getName() + " [" + actor.getJob() + "]");
-            CombatLog.register("HP: " + actor.getCurrentHP() + "/" + actor.getMaxHP());
+            System.out.println("\nCombatente: " + actor.getName() + " [" + actor.getJob() + " " + "Lv." + actor.getLevel() + "]");
+            System.out.println("HP: " + actor.getCurrentHP() + "/" + actor.getMaxHP());
             Mana mana = actor.getResource(Mana.class);
-            CombatLog.register("MP: " + mana.getCurrent() + "/" + mana.getMax());
+            System.out.println("MP: " + mana.getCurrent() + "/" + mana.getMax());
             action = Menu.select(actor);
         } else {
             action = IA.act(actor);

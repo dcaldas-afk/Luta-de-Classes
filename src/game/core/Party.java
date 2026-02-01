@@ -33,4 +33,9 @@ public class Party {
         return members.contains(player);
     }
 
+    public void printNames() {
+        for (int i = 0; i < members.size(); i++) {
+            System.out.printf("%d) %s%n", i + 1, members.get(i).getName() + " [" + members.get(i).getJob() + " Lv." + members.get(i).getLevel() + "]");
+        }
+    }
 }

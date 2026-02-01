@@ -75,7 +75,7 @@ public class Menu {
         while (true) {
             for (int i = 0; i < targets.size(); i++) {
                 Player p = targets.get(i);
-                System.out.println( (i + 1) + " - " + p.getName() + " [" + p.getJob() + "] " + "" + p.getCurrentHP() + "/" + p.getMaxHP() + " HP" + " SOR: " + p.hasEffect("MANUS"));
+                System.out.println( (i + 1) + " - " + p.getName() + " [" + p.getJob() + " Lv." + p.getLevel() + "] " + "" + p.getCurrentHP() + "/" + p.getMaxHP() + " HP");
             }
             System.out.println("0 - Voltar");
             System.out.print("> ");

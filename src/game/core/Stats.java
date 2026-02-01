@@ -26,10 +26,10 @@ public class Stats {
     public int getLuck()                   {return luck;}
 
     // Adders
-    public void addStrength(int value)     {strength += value;}
-    public void addAgility(int value)      {agility += value;}
-    public void addDexterity(int value)    {dexterity += value;}
-    public void addIntelligence(int value) {intelligence += value;}
-    public void addVitality(int value)     {vitality += value;}
-    public void addLuck(int value)         {luck += value;}
+    public void addStrength(double value)     {strength += value;}
+    public void addAgility(double value)      {agility += value;}
+    public void addVitality(double value)     {vitality += value;}
+    public void addIntelligence(double value) {intelligence += value;}
+    public void addDexterity(double value)    {dexterity += value;}
+    public void addLuck(double value)         {luck += value;}
 }

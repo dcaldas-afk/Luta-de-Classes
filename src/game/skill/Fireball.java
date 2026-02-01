@@ -26,7 +26,7 @@ public class Fireball extends Skill {
 
         //colocar dano aleatório também depois
         int variation = rand.nextInt(10) - 3;
-        int damage = 30 + actor.getStats().getIntelligence() + variation;
+        int damage = 2 + actor.getStats().getIntelligence() + variation;
         damage = Math.max(0, damage);
 
         CombatLog.register(actor.getName() + " lançou Bola de Fogo em " + target.getName() + ", causando " + damage + " pontos de dano" );

@@ -9,19 +9,22 @@ public class Priest extends Player {
 
     private static Stats defaultStats() {
         return new Stats (
-    2,   // strength
-     90,   // agility
-    4,   // dexterity
-10,  // intelligence
-   99,  // vitality
-        6    // luck 
+            6,   // força
+            6,   // agilidade
+           11,   // vitalidade
+       14,  // inteligência
+          6,  // destreza
+               7    // sorte
         );
     }
     
-    public Priest(String name, boolean ifHuman) {
-        super(name, 100, ifHuman, defaultStats(), Job.PRIEST);
-        addResource(new Mana(100));
-
+    public Priest(String name, boolean ifHuman, int level) {
+        super(name, ifHuman, defaultStats(), Job.PRIEST, level);
+        balance(level);
+        calcHP();
+        int maxMP = 15 + stats.getIntelligence()*3;
+        addResource(new Mana(maxMP));
+        
         actions.add(new Attack());
         actions.add(new SkillMenuAction());
         actions.add(new SkipTurn());
@@ -33,5 +36,22 @@ public class Priest extends Player {
         skillList.add(new Cure());
         skillList.add(new Gloria());
         skillList.add(new ImpositioManus());
+    }
+
+    public void balance(int level) {
+        stats.addStrength(Math.floor(level*0.9));
+        stats.addAgility(Math.floor(level*3.5));
+        stats.addVitality(Math.floor(level*2));
+        stats.addIntelligence(Math.floor(level*3.5));
+        stats.addDexterity(Math.floor(level*1.5));
+        stats.addLuck(Math.floor(level*1.5));  
+    }
+
+    public void calcHP() {
+        maxHP = 30 + stats.getVitality()*3;
+        setCurrentHP(maxHP);
+
+        if (currentHP >= maxHP)
+            currentHP = maxHP;
     }
 }

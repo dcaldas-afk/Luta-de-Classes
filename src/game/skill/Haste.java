@@ -1,12 +1,8 @@
 package game.skill;
 
-import java.util.Map;
-
-import game.buffs.StatEffect;
-import game.combat.CombatLog;
-import game.combat.TargetType;
-import game.core.Player;
-import game.core.StatType;
+import game.buffs.*;
+import game.combat.*;
+import game.core.*;
 
 public class Haste extends Skill {
 
@@ -23,8 +19,8 @@ public class Haste extends Skill {
 
         consume(actor);
 
-        target.addEffect(new StatEffect(Map.of(StatType.AGILITY, 10), 5));
-        CombatLog.register(target.getName() + " recebeu AGI+10 por 5 turnos");
+        target.addEffect(new HasteEffect());
+        CombatLog.register(target.getName() + " recebeu AGI+15 por 5 turnos");
     }
 
     @Override

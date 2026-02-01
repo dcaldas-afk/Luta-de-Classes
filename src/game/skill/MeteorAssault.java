@@ -19,7 +19,7 @@ public class MeteorAssault extends Skill {
     public void use(Player actor, Player target) {
         Random rand = new Random();
         int variation = rand.nextInt(30) - 15;
-        int damage = (int) (25 + actor.getStats().getStrength()*1.1 + actor.getStats().getDexterity()*0.8 + variation - target.getStats().getVitality());
+        int damage = (int) (10 + actor.getStats().getStrength() + actor.getStats().getDexterity()*0.3 + variation - target.getStats().getVitality());
         damage = Math.max(0, damage);
 
         //consume(actor);

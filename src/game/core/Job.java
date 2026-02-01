@@ -4,7 +4,8 @@ public enum Job {
     WARRIOR("Guerreiro"),
     MAGE("Mago"),
     ARCHER("Atirador"),
-    PRIEST("Sacerdote");
+    PRIEST("Sacerdote"),
+    ASSASSIN("Mercenário");
 
     private final String displayName;
 

@@ -47,7 +47,21 @@ public class MultiAttack implements Effect {
             boolean isCritical = rollCritical(actor);
             int damage = Math.max(0,formula.calculate(actor, target));
             if (!isCritical) {
-                CombatLog.register(target.getName() + " recebeu " + damage + " pontos de dano");
+                // balancear isso depois
+                Random r = new Random();
+                int baseAccuracy = 50;
+                int dex = actor.getStats().getDexterity();
+                int targetEvasion = target.getStats().getAgility();
+                int hit = baseAccuracy + dex*2 - targetEvasion*2;
+                hit = Math.max(0, Math.min(hit, 95));
+
+                int roll = r.nextInt(100) - 1;
+
+                if (roll > hit) {
+                    CombatLog.register(target.getName() + " desviou do ataque de " + actor.getName());
+                    damage = 0;
+                }else{
+                    CombatLog.register(target.getName() + " recebeu " + damage + " pontos de dano");}
             }else{
                 damage *= 1.5;
                 CombatLog.register(target.getName() + " recebeu " + damage + " pontos de dano [CRÍTICO]");}
@@ -59,7 +73,7 @@ public class MultiAttack implements Effect {
     @Override
     public boolean rollCritical(Player actor) {
         int luck = actor.getStats().getLuck();
-        double critChance = 0.20 + (luck * 0.01);
+        double critChance = 0.01 + (luck * 0.01);
         return Math.random() < critChance;
     }
 }

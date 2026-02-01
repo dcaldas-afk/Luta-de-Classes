@@ -6,14 +6,16 @@ import game.combat.CombatLog;
 import game.resources.Resource;
 import game.skill.*;
 import java.util.*;
+import game.core.*;
 
 public abstract class Player {
 
     protected final String name;
-    protected int maxHP;
+    protected int maxHP = 1;
     protected final Job job;
     protected int currentHP;
     protected Stats stats;
+    protected int level;
 
     protected boolean ifHuman;
 
@@ -27,20 +29,14 @@ public abstract class Player {
 
     private int atb = 0;
 
-    public Player(String name, int maxHP, boolean ifHuman, Stats stats, Job job) {
-
-        if (maxHP <= 0)
-            throw new IllegalArgumentException("Os PV precisam ser positivos!");
-
-        if (stats == null)
-            throw new IllegalArgumentException("Stats não podem ser nulos!");
-
+    public Player(String name, boolean ifHuman, Stats stats, Job job, int level) {
+        
         this.name = name;
-        this.maxHP = maxHP;
-        this.currentHP = maxHP;
         this.ifHuman = ifHuman;
         this.stats = stats;
         this.job = job;
+        this.level = level;
+        this.currentHP = maxHP;
     }
 
     /* ================= VIDA ================= */
@@ -143,6 +139,7 @@ public abstract class Player {
     public int getMaxHP()     {return maxHP;}
     public Stats getStats()   {return stats;}
     public Job getJob()       {return job;}
+    public int getLevel()     {return level;} 
 
     /* ================= BUFFS/DEBUFFS ================= */
 
