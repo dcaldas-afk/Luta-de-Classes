@@ -1,4 +1,4 @@
-# Guerra-de-Classes
+# Luta-de-Classes
 Repositório dedicado ao projeto final da matéria de POO, sendo um jogo de terminal com implementação de interface gráfica minimalista, feito completamente em Java, sem nenhuma biblioteca externa.
 
 # Dependências
