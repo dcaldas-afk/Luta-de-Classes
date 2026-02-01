@@ -5,7 +5,7 @@ import game.core.*;
 import game.resources.Mana;
 import game.skill.*;
 
-public class Archer extends Player {
+public class Assassin extends Player {
 
     private static Stats defaultStats() {
         return new Stats (
@@ -18,8 +18,8 @@ public class Archer extends Player {
         );
     }
     
-    public Archer(String name, boolean ifHuman, int level) {
-        super(name, ifHuman, defaultStats(), Job.ARCHER, level);
+    public Assassin(String name, boolean ifHuman, int level) {
+        super(name, ifHuman, defaultStats(), Job.ASSASSIN, level);
         balance(level);
         calcHP();
         int maxMP = 15 + stats.getIntelligence()*3;
@@ -29,17 +29,17 @@ public class Archer extends Player {
         actions.add(new SkillMenuAction());
         actions.add(new SkipTurn());
 
-        skillList.add(new DoubleStrafe());
-        //skillList.add(new SonicBlow());
-        //skillList.add(new MeteorAssault());
+        //skillList.add(new DoubleStrafe());
+        skillList.add(new SonicBlow());
+        skillList.add(new MeteorAssault());
     }
 
     public void balance(int level) {
-      stats.addStrength(Math.floor(level*1.2));
+      stats.addStrength(Math.floor(level*2));
       stats.addAgility(Math.floor(level*2));
-      stats.addVitality(Math.floor(level*1.4));
-      stats.addIntelligence(Math.floor(level*1.3));
-      stats.addDexterity(Math.floor(level*2.5));
+      stats.addVitality(Math.floor(level));
+      stats.addIntelligence(Math.floor(level));
+      stats.addDexterity(Math.floor(level*2));
       stats.addLuck(Math.floor(level*2));  
     }
 

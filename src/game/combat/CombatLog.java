@@ -1,12 +1,14 @@
 package game.combat;
 
-import java.util.*;
+import game.ui.CombatLogWindow;
 
 public class CombatLog {
-    private static List<String> history = new ArrayList<>();
 
     public static void register(String message) {
-        history.add(message);
+        // continua aparecendo no terminal
         System.out.println(message);
+
+        // vai para a janela
+        CombatLogWindow.log(message);
     }
 }
