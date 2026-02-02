@@ -22,6 +22,7 @@ public class Assassin extends Player {
         super(name, ifHuman, defaultStats(), Job.ASSASSIN, level);
         balance(level);
         calcHP();
+        
         int maxMP = 15 + stats.getIntelligence()*3;
         addResource(new Mana(maxMP));
 
@@ -32,6 +33,8 @@ public class Assassin extends Player {
         //skillList.add(new DoubleStrafe());
         skillList.add(new SonicBlow());
         skillList.add(new MeteorAssault());
+        skillList.add(new PoisonKnife());
+        skillList.add(new VenomSplasher());
     }
 
     public void balance(int level) {

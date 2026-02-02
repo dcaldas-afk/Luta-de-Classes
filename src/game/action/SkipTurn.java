@@ -18,6 +18,10 @@ public class SkipTurn implements Action {
     
     @Override
     public void act(Player player, Player target) {
+        if (player.hasEffect("STUN")) {
+            CombatLog.register(player.getName() + " está atordoado e não pode realizar nenhuma ação neste turno");
+            return;
+        }
         CombatLog.register(player.getName() + " pulou o turno");
     }
 }

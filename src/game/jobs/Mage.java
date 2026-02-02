@@ -22,6 +22,7 @@ public class Mage extends Player {
         super(name, ifHuman, defaultStats(), Job.MAGE, level);
         balance(level);
         calcHP();
+        
         int maxMP = 15 + stats.getIntelligence()*3;
         addResource(new Mana(maxMP));
 
@@ -31,7 +32,10 @@ public class Mage extends Player {
 
         skillList.add(new Fireball());
         skillList.add(new Blizzard());
-        //skillList.add(new Angelus());
+        skillList.add(new MeteorStorm());
+        skillList.add(new SightTrasher());
+        skillList.add(new JupitelThunder());
+        skillList.add(new HeavensDrive());
     }
     
     public void balance(int level) {
