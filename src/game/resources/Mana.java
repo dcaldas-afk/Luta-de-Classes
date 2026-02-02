@@ -3,7 +3,7 @@ package game.resources;
 não aceitar valores negativos no custo ou na própria mana*/
 public class Mana implements Resource {
 
-    private final int maxMP;
+    private int maxMP;
     private int currentMP;
 
     public Mana(int maxMP) {
@@ -48,5 +48,24 @@ public class Mana implements Resource {
     @Override
     public String toString() {
         return "Mana(" + currentMP + "/" + maxMP + ")";
+    }
+
+    /*============= SETTERS ============= */
+    public void setCurrentMP(int value) {
+        currentMP = Math.min(maxMP, value);
+    }
+
+    public void increaseCurrentMP(int value) {
+        currentMP += value;
+    }
+
+    public void increaseMaxMP(int value) {
+        maxMP += value;
+    }
+
+    public void decreaseMaxMP(int value) {
+        maxMP -= value;
+        if (maxMP <= 0)
+            maxMP = 0;
     }
 }

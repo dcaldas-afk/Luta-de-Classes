@@ -2,18 +2,20 @@ package game.core;
 
 import game.action.Action;
 import game.buffs.Effect;
+import game.buffs.ShieldEffect;
 import game.combat.CombatLog;
 import game.resources.Resource;
 import game.skill.*;
 import java.util.*;
-import game.core.*;
 
 public abstract class Player {
 
     protected final String name;
     protected int maxHP = 1;
+    protected int maxMP = 1;
     protected final Job job;
     protected int currentHP;
+    protected int currentMP;
     protected Stats stats;
     protected int level;
 
@@ -37,6 +39,7 @@ public abstract class Player {
         this.job = job;
         this.level = level;
         this.currentHP = maxHP;
+        this.currentMP = maxMP;
     }
 
     /* ================= VIDA ================= */
@@ -46,6 +49,13 @@ public abstract class Player {
         double buff1 = 0;
         double buff2 = 0;
 
+        ShieldEffect shield = (ShieldEffect) getEffect("SHIELD");
+
+        if (shield != null && shield.block(this)) {
+            if (shield.isExpired())
+                removeEffect(shield);
+            return 0;
+        }
 
         if (hasEffect("MANUS")) {
             buff1  = Math.floor(base*0.2);
@@ -64,13 +74,15 @@ public abstract class Player {
         return currentHP > 0;
     }
 
-    public void ifDeath() {
+    public boolean ifDeath() {
         if (currentHP <= 0) {
             currentHP = 0;
             CombatLog.register(name + " morreu");
+            return true;
         }
+        return false;
     }
-
+    /* ================= SETTERS ================= */
     public void setCurrentHP(int value) {
         currentHP = Math.min(maxHP, value);
     }
@@ -140,6 +152,16 @@ public abstract class Player {
     public Stats getStats()   {return stats;}
     public Job getJob()       {return job;}
     public int getLevel()     {return level;} 
+    public int getCurrentMP() {return currentMP;}
+    public int getMaxMP()     {return maxMP;}  
+
+    public Effect getEffect(String id) {
+        for (Effect e : effects) {
+            if (e.getId().equals(id))
+                return e;
+        }
+        return null;
+    }
 
     /* ================= BUFFS/DEBUFFS ================= */
 
@@ -170,7 +192,19 @@ public abstract class Player {
         }
     }
 
+    public void removeEffect(Effect effect) {
+        effects.remove(effect);
+        effect.onExpire(this);
+    }
+
     public boolean isSilenced() {
         return effects.stream().anyMatch(e -> e.getId().equals("SILENCE"));
+    }
+
+    public void printEffects() {
+        for (Effect e : effects) {
+            System.out.print("[" + e.getId() + "] ");
+        }
+        System.out.println();
     }
 }

@@ -8,7 +8,7 @@ public class Haste extends Skill {
 
     public Haste() {
         this.name = "Aumentar Agilidade";
-        this.cost = 10;
+        this.cost = 15;
         this.targetType = TargetType.ALLY_SINGLE;
     }
 
@@ -25,6 +25,10 @@ public class Haste extends Skill {
 
     @Override
     public void displayMessage(Player actor, Player target) {
-        CombatLog.register(actor.getName() + " usou " + name + "!");
+        if (actor == target)
+            CombatLog.register(actor.getName() + " usou Aumentar Agilidade em si mesmo");
+        else
+            CombatLog.register(actor.getName() + " usou Aumentar Agilidade em " + target.getName());
+
     }
 }

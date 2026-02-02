@@ -22,12 +22,20 @@ public class Warrior extends Player {
         super(name, ifHuman, defaultStats(), Job.WARRIOR, level);
         balance(level);
         calcHP();
+        
         int maxMP = 15 + stats.getIntelligence()*3;
         addResource(new Mana(maxMP));
         
         actions.add(new Attack());
         actions.add(new SkillMenuAction());
         actions.add(new SkipTurn());
+
+        skillList.add(new Bash());
+        skillList.add(new CruxMagnum());
+        //skillList.add(new KyrieEleison());
+        skillList.add(new CruxDivinum());
+        skillList.add(new Pierce());
+        skillList.add(new SpearStab());
     }
 
     public void balance(int level) {

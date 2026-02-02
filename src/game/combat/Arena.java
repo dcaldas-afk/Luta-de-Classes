@@ -73,6 +73,11 @@ public class Arena {
         if (!actor.isAlive())
             return;
 
+        if (actor.hasEffect("STUN")) {
+            new SkipTurn().act(actor, actor);
+            return;
+        }
+
         Action action;
 
         if (actor.isHuman()) {

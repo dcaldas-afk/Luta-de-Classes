@@ -7,12 +7,13 @@ import game.combat.CombatLog;
 import game.combat.TargetType;
 import game.core.Player;
 import game.core.StatType;
+import java.util.Random;
 
 public class Cure extends Skill {
 
     public Cure() {
         this.name = "Cura";
-        this.cost = 15;
+        this.cost = 20;
         this.targetType = TargetType.ALLY_SINGLE;
     }
 
@@ -20,12 +21,15 @@ public class Cure extends Skill {
     public void use(Player actor, Player target) {
         if (!canUse(actor))
             return;
-
+        
+        Random r = new Random();
+        int seed = actor.getStats().getIntelligence();
         consume(actor);
-        target.increaseCurrentHP(30);
+        int heal = (int) (10 + seed*2 - (r.nextInt(seed) + 10));
+        target.increaseCurrentHP(heal);
         if (target.getCurrentHP() >= target.getMaxHP())
             target.setCurrentHP(target.getMaxHP());
-        CombatLog.register(target.getName() + " foi curado em 30 HP");
+        CombatLog.register(target.getName() + " foi curado em " + heal + "HP");
     }
     
     @Override

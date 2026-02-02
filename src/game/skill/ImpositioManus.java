@@ -10,7 +10,7 @@ public class ImpositioManus extends Skill {
 
     public ImpositioManus() {
         this.name = "Impositio Manus";
-        this.cost = 50;
+        this.cost = 63;
         this.targetType = TargetType.ENEMY_AREA;
     }
 

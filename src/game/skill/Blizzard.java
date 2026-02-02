@@ -17,6 +17,10 @@ public class Blizzard extends Skill {
 
     @Override
     public void use(Player actor, Player target) {
+        if (target.hasEffect("PNEUMA")) {
+            CombatLog.register("A nuvem de Pneuma protegeu " + target.getName() + " da " + name + " de " + actor.getName());
+            return;
+        }
         Random rand = new Random();
         int variation = rand.nextInt(15) - 6;
         int damage = 5 + actor.getStats().getIntelligence() + variation;
