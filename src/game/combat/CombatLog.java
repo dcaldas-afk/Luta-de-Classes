@@ -1,5 +1,7 @@
 package game.combat;
 
+import game.ui.CombatLogWindow;
+
 public class CombatLog {
 
     public static void register(String message) {
