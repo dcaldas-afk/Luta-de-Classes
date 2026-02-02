@@ -11,12 +11,17 @@ public class MeteorAssault extends Skill {
 
     public MeteorAssault() {
         this.name = "Impacto Meteoro";
-        this.cost = 30;
+        this.cost = 29;
         this.targetType = TargetType.ENEMY_AREA;
     }
 
     @Override
     public void use(Player actor, Player target) {
+        if (target.hasEffect("PNEUMA")) {
+            CombatLog.register("A nuvem de Pneuma protegeu " + target.getName() + " do " + name + " de " + actor.getName());
+            return;
+        }
+        
         Random rand = new Random();
         int variation = rand.nextInt(30) - 15;
         int damage = (int) (10 + actor.getStats().getStrength() + actor.getStats().getDexterity()*0.3 + variation - target.getStats().getVitality());

@@ -18,8 +18,9 @@ public class Magnificat extends Skill {
 
     @Override
     public void use(Player caster, Player target) {
-        target.getResource(Mana.class).regenerate(20);
-        CombatLog.register(target.getName() + " recuperou 20 pontos de mana");
+        int value = 20 + target.getLevel();
+        target.getResource(Mana.class).regenerate(value);
+        CombatLog.register(target.getName() + " recuperou " + value + "pontos de mana");
     }
 
     @Override

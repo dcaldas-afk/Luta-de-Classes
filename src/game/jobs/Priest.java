@@ -22,6 +22,7 @@ public class Priest extends Player {
         super(name, ifHuman, defaultStats(), Job.PRIEST, level);
         balance(level);
         calcHP();
+        
         int maxMP = 15 + stats.getIntelligence()*3;
         addResource(new Mana(maxMP));
         
@@ -29,11 +30,14 @@ public class Priest extends Player {
         actions.add(new SkillMenuAction());
         actions.add(new SkipTurn());
 
+        skillList.add(new Cure());
+        skillList.add(new Blessing());
         skillList.add(new LexDivina());
+        skillList.add(new Pneuma());
         skillList.add(new Haste());
         skillList.add(new Magnificat());
         skillList.add(new Angelus());
-        skillList.add(new Cure());
+        skillList.add(new Suffragium());
         skillList.add(new Gloria());
         skillList.add(new ImpositioManus());
     }

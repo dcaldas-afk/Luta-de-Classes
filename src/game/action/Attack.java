@@ -19,6 +19,12 @@ public class Attack implements Action {
 
     @Override
     public void act(Player player, Player target) {
+        if (player.getJob() == Job.ARCHER) {
+            if (target.hasEffect("PNEUMA")) {
+                CombatLog.register(player.getName() + " tentou atirar uma flecha em " + target.getName() + ", mas a nuvem de Pneuma o protegeu.");
+                return;
+            }
+        }
         Random r = new Random();
         
         int baseDmg = player.getStats().getStrength();
@@ -26,6 +32,8 @@ public class Attack implements Action {
 
         // balancear isso depois
         int baseAccuracy = 50;
+        if (player.hasEffect("WINDWALK"))
+            baseAccuracy += 20;
         int dex = player.getStats().getDexterity();
         int targetEvasion = target.getStats().getAgility();
         int hit = baseAccuracy + dex*2 - targetEvasion*2;
@@ -33,12 +41,14 @@ public class Attack implements Action {
 
         int roll = r.nextInt(100) - 1;
 
+        if (player.hasEffect("BLIND"))
+            hit *= 0.1;
         if (roll > hit) {
             CombatLog.register(target.getName() + " desviou do ataque de " + player.getName());
             return;
         }
         
-        int damage = 2 + baseDmg + variation;
+        int damage = (int) (2 + baseDmg + variation - target.getStats().getVitality()*0.5);
         damage = Math.max(0, damage);
         damage = target.receiveDamage(damage);
         CombatLog.register(player.getName() + " atacou " + target.getName() + ", causando " + damage + " pontos de dano");

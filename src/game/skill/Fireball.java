@@ -10,12 +10,17 @@ public class Fireball extends Skill {
 
     public Fireball() {
         this.name = "Bola de Fogo";
-        this.cost = 20;
+        this.cost = 23;
         this.targetType = TargetType.ENEMY_SINGLE;
     }
 
     @Override
     public void use(Player actor, Player target) {
+        if (target.hasEffect("PNEUMA")) {
+            CombatLog.register("A nuvem de Pneuma protegeu " + target.getName() + " da " + name + " de " + actor.getName());
+            return;
+        }
+
         Random rand = new Random();
         if (!canUse(actor)) {
             CombatLog.register(actor.getName() + " tentou conjurar Bola de Fogo, mas não tinha mana!");

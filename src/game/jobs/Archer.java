@@ -22,6 +22,7 @@ public class Archer extends Player {
         super(name, ifHuman, defaultStats(), Job.ARCHER, level);
         balance(level);
         calcHP();
+        
         int maxMP = 15 + stats.getIntelligence()*3;
         addResource(new Mana(maxMP));
 
@@ -30,8 +31,11 @@ public class Archer extends Player {
         actions.add(new SkipTurn());
 
         skillList.add(new DoubleStrafe());
-        //skillList.add(new SonicBlow());
-        //skillList.add(new MeteorAssault());
+        skillList.add(new Sharpshooting());
+        skillList.add(new ArrowShower());
+        skillList.add(new ChargeArrow());
+        skillList.add(new Concentration());
+        skillList.add(new Windwalk());
     }
 
     public void balance(int level) {

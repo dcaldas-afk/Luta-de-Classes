@@ -11,7 +11,7 @@ public class LexDivina extends Skill {
 
     public LexDivina() {
         this.name = "Lex Divina";
-        this.cost = 15;
+        this.cost = 17;
         this.targetType = TargetType.ENEMY_SINGLE;
     }
 
