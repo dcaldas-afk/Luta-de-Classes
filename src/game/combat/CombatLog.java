@@ -7,6 +7,6 @@ public class CombatLog {
         System.out.println(message);
 
         // vai para a janela
-      //  CombatLogWindow.log(message);
+        CombatLogWindow.log(message);
     }
 }
